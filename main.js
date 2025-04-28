@@ -20,6 +20,7 @@ let likedPosts = [];
 
 function main() {
     //What should the program do at the start?
+    likedPosts = JSON.parse(localStorage.likedPosts ?? "[]");
     renderPosts();
 }
 
@@ -53,5 +54,6 @@ function toggleLikedPost(post) {
     } else {
             likedPosts.push(post.id);
     }
+    localStorage.likedPosts = JSON.stringify(likedPosts);
     renderPosts();
 }
