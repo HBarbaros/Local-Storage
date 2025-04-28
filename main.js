@@ -16,6 +16,8 @@ const posts = [{
     imageUrl: "https://images.pexels.com/photos/3736135/pexels-photo-3736135.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
 }];
 
+let likedPosts = [];
+
 function main() {
     //What should the program do at the start?
     renderPosts();
@@ -23,13 +25,23 @@ function main() {
 
 function renderPosts() {
     const main = document.querySelector("main");
+    main.innerHTML = null;
+
     for (const post of posts) {
         const article = document.createElement("article");
         article.className = "post-article";
         
         const heart = document.createElement("button");
-        heart.textContent = "🤍";
+        heart.textContent = likedPosts.includes(post.id) ? "❤️" : "🤍";
         heart.className = "like-button";
+        heart.onclick = () => {
+            if (likedPosts.includes(post.id)) {
+                likedPosts = likedPosts.filter((id) => id !== post.id);
+            } else {
+                likedPosts.push(post.id);
+            }
+            renderPosts();
+        };
 
         const img = document.createElement("img");
         img.src = post.imageUrl;
