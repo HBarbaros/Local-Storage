@@ -34,14 +34,7 @@ function renderPosts() {
         const heart = document.createElement("button");
         heart.textContent = likedPosts.includes(post.id) ? "❤️" : "🤍";
         heart.className = "like-button";
-        heart.onclick = () => {
-            if (likedPosts.includes(post.id)) {
-                likedPosts = likedPosts.filter((id) => id !== post.id);
-            } else {
-                likedPosts.push(post.id);
-            }
-            renderPosts();
-        };
+        heart.onclick = () => toggleLikedPost(post);
 
         const img = document.createElement("img");
         img.src = post.imageUrl;
@@ -54,3 +47,11 @@ function renderPosts() {
     }
 }
 
+function toggleLikedPost(post) {
+    if (likedPosts.includes(post.id)) {
+            likedPosts = likedPosts.filter((id) => id !== post.id);
+    } else {
+            likedPosts.push(post.id);
+    }
+    renderPosts();
+}
